@@ -10,8 +10,26 @@
     <!--Подключаем веншний файл с параметрами. classpath - путь до приложения -->
     <context:property-placeholder location="classpath:musicPlayer.properties"/>
 
-    <bean id="musicBean"
+    <bean id="classicMusicBean"
           class="ru.kurochkin.springcourse.ClassicalMusic"> <!--путь к классу, bean которого создаем-->
+    </bean>
+
+    <bean id="rockMusicBean"
+          class="ru.kurochkin.springcourse.RockMusic"> <!--путь к классу, bean которого создаем-->
+    </bean>
+
+    <bean id="popMusicBean"
+          class="ru.kurochkin.springcourse.PopMusic"> <!--путь к классу, bean которого создаем-->
+    </bean>
+
+    <bean id="playlist" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean = "classicMusicBean"/>
+                <ref bean = "rockMusicBean"/>
+                <ref bean = "popMusicBean"/>
+            </list>
+        </constructor-arg>
     </bean>
 
     <!--Dependency Injection (DI)-->
@@ -21,10 +39,21 @@
         <!--нужен конструктор по умолчанию (пустой) в bean MusicPlayer -->
         <!--Spring распознает set и разбирает MusicPlayer.setMusic()->Music->music, получая name -->
         <!--Полю 'name' bean передается ссылка 'ref'  -->
-        <property name="music"  ref="musicBean"/>
-
+        <property name="musicList" ref="playlist"/>
         <property name="name" value="${musicPlayer.name}"/>
         <property name="volume" value="${musicPlayer.volume}"/>
+
+        <!--альтернативный способо добаления списка бинов
+
+        <bean id="musicPlayer"
+          class="ru.kurochkin.springcourse.MusicPlayer">
+        <property name="musicList">
+            <list>
+                <ref bean="musicBean1"/>
+                <ref bean="musicBean2"/>
+                <ref bean="musicBean3"/>
+            </list>
+        </property>                -->
     </bean>
 
 </beans>
