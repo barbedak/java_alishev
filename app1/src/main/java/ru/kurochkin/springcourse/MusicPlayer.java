@@ -1,44 +1,30 @@
 package ru.kurochkin.springcourse;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MusicPlayer {
-    private List<Music> musicList = new ArrayList<>();
+    private Music music;
     private String name;
     private int volume;
 
-    //IoC
-    public MusicPlayer(List<Music> musicList) {
-        this.musicList = musicList;
-    }
-
-    public MusicPlayer() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getVolume() {
-        return volume;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
-
-    public void setMusicList(List<Music> musicList) {
-        this.musicList.addAll(musicList);
+    //DI Annotation
+    //@Autowired
+    //Spring сканирует все классы с @Component и создает бины
+    //Сканирует все бины и подбирает подходящие к помеченному @Autowired по типу (класс или интерфейс)
+    //можно аннотацию вешать на поля (даже приватное через Java Reflection API), сеттеры и конструкторы
+    //можно внедрять бины по классу
+    // public MusicalPlayer(ClassicalMusic classicalMusic){}
+    // или по интерфейсу
+    // public MusicalPlayer(Music music){}
+    //Если два бина подходят по типу - то возникает неоднозначность
+    @Autowired
+    public MusicPlayer(Music music) {
+        this.music = music;
     }
 
     public void playMusic() {
-        for (Music music : musicList) {
-            System.out.println("Playing: " + music.getSong());
-        }
+        System.out.println("Playing: " + music.getSong());
     }
 }

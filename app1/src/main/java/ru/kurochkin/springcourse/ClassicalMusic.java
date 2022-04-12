@@ -2,7 +2,6 @@ package ru.kurochkin.springcourse;
 
 import org.springframework.stereotype.Component;
 
-@Component
 public class ClassicalMusic implements Music {
 //  паттерн  Фабричный метод
     private ClassicalMusic(){} //ограничение создания объекта через new, нужно использовать фабричный метод
