@@ -23,6 +23,10 @@ public class MusicPlayer {
         this.music2 = music2;
     }
 
+    public MusicPlayer(ClassicalMusic musicBean) {
+        this.music1 = musicBean;
+    }
+
     public String playMusic() {
         return "Playing: " + music1.getSong() + ", " + music2.getSong();
     }

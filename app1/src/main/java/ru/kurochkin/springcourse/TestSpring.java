@@ -1,27 +1,19 @@
 package ru.kurochkin.springcourse;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class TestSpring {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-
-        //получаем bean из Application Context
-        //указываем id bean и класс, bean которого хотим получить
-
-//        Music music = context.getBean("musicBean", Music.class);
-//        Music music2 = context.getBean("classicalMusic", Music.class);
-//
-//        MusicPlayer musicPlayer = new MusicPlayer(music);
-//        musicPlayer.playMusic();
-//
-//        MusicPlayer classicMusicPlayer = new MusicPlayer(music2);
-//        classicMusicPlayer.playMusic();
+        //было с XML
+//        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 //        MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
-//        musicPlayer.playMusic();
+//        context.close(); //не забываем закрывать, при завершении работы с Application Context
 
-        Computer computer = context.getBean("computer", Computer.class);
-        System.out.println(computer);
-        context.close(); //не забываем закрывать, при завершении работы с Application Context
+        //стало с Java Config Class
+        AnnotationConfigApplicationContext context1 = new AnnotationConfigApplicationContext(SpringConfig.class);
+        MusicPlayer musicPlayer1 = context1.getBean("musicPlayer", MusicPlayer.class);
+        context1.close();
+
     }
 }
