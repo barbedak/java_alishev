@@ -10,9 +10,23 @@
     <!--Подключаем веншний файл с параметрами. classpath - путь до приложения -->
     <context:property-placeholder location="classpath:musicPlayer.properties"/>
 
+    <!--указываем путь к классу, bean которого создаем-->
     <bean id="classicMusicBean"
-          class="ru.kurochkin.springcourse.ClassicalMusic"> <!--путь к классу, bean которого создаем-->
+          class="ru.kurochkin.springcourse.ClassicalMusic"
+          init-method="doMyInit"
+          destroy-method="doMyDestroy"
+          factory-method="getClassicalMusic">
     </bean>
+
+    <!--doMyInit и doMyDestroy создаются в классе бина - ClassicalMusic и НЕ ДОЛЖНЫ принимать на вход аргументы-->
+    <!--init-method -->
+    <!-- запускается в ходе инициализации бина, после его создания-->
+    <!-- иниицализация ресурсов, обращение к внешним файлам, запуск БД-->
+
+    <!--destroy-method-->
+    <!-- запускается в ходе уничтожения бина, при завершении приложения-->
+    <!-- очищение ресурсов, закрытие потоков ввода-вывода, закрытие доступа к БД-->
+    <!--Factory method - -->
 
     <bean id="rockMusicBean"
           class="ru.kurochkin.springcourse.RockMusic"> <!--путь к классу, bean которого создаем-->
@@ -25,23 +39,29 @@
     <bean id="playlist" class="java.util.ArrayList">
         <constructor-arg>
             <list>
-                <ref bean = "classicMusicBean"/>
-                <ref bean = "rockMusicBean"/>
-                <ref bean = "popMusicBean"/>
+                <ref bean="classicMusicBean"/>
+                <ref bean="rockMusicBean"/>
+                <ref bean="popMusicBean"/>
             </list>
         </constructor-arg>
     </bean>
 
-    <!--Dependency Injection (DI)-->
-    <bean id="musicPlayer"
-          class="ru.kurochkin.springcourse.MusicPlayer">
 
+    <bean id="musicPlayer"
+          class="ru.kurochkin.springcourse.MusicPlayer"
+          scope="prototype">
+        <!--Scope Singleton - бин создается один раз и ApplicationContext возвращает ссылку на один и тот же объект
+         Используется по умолчанию -->
+        <!--Scope Prototype - при вызове из ApplicationContext возвращает ссылку на новый объект. не вызывает destroy метод-->
+
+        <!--Dependency Injection (DI)-->
         <!--нужен конструктор по умолчанию (пустой) в bean MusicPlayer -->
-        <!--Spring распознает set и разбирает MusicPlayer.setMusic()->Music->music, получая name -->
+        <!--Spring распознает set и разбирает MusicPlayer.setMusic()->Music->music, получая 'name' -->
         <!--Полю 'name' bean передается ссылка 'ref'  -->
         <property name="musicList" ref="playlist"/>
         <property name="name" value="${musicPlayer.name}"/>
         <property name="volume" value="${musicPlayer.volume}"/>
+
 
         <!--альтернативный способо добаления списка бинов
 
