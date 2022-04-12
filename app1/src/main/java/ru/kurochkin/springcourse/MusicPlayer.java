@@ -19,8 +19,14 @@ public class MusicPlayer {
     // или по интерфейсу
     // public MusicalPlayer(Music music){}
     //Если два бина подходят по типу - то возникает неоднозначность
-    @Autowired
+
+
     public MusicPlayer(Music music) {
+        this.music = music;
+    }
+
+    @Autowired
+    public void setMusic(Music music) {
         this.music = music;
     }
 
