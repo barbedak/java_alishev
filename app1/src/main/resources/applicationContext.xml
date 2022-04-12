@@ -14,7 +14,11 @@
     <!--Dependency Injection (DI)-->
     <bean id="musicPlayer"
           class="ru.kurochkin.springcourse.MusicPlayer">
-        <constructor-arg ref="musicBean"/> <!--в качестве аргумента конструктора передаем bean (DI)-->
+
+        <!--нужен конструктор по умолчанию (пустой) в bean MusicPlayer -->
+        <!--Spring распознает set и разбирает MusicPlayer.setMusic()->Music->music, получая name -->
+        <!--Полю 'name' bean передается ссылка 'ref'  -->
+        <property name="music"  ref="musicBean"/>
     </bean>
 
 </beans>
