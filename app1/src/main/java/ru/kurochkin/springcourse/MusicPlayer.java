@@ -2,6 +2,8 @@ package ru.kurochkin.springcourse;
 
 public class MusicPlayer {
     private Music music;
+    private String name;
+    private int volume;
 
     //IoC
     public MusicPlayer(Music music) {
@@ -9,7 +11,22 @@ public class MusicPlayer {
     }
 
     public MusicPlayer(){
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setVolume(int volume) {
+        this.volume = volume;
     }
 
     public void setMusic(Music music) {

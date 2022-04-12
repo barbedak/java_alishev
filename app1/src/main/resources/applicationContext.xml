@@ -7,6 +7,9 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!--Подключаем веншний файл с параметрами. classpath - путь до приложения -->
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+
     <bean id="musicBean"
           class="ru.kurochkin.springcourse.ClassicalMusic"> <!--путь к классу, bean которого создаем-->
     </bean>
@@ -19,6 +22,9 @@
         <!--Spring распознает set и разбирает MusicPlayer.setMusic()->Music->music, получая name -->
         <!--Полю 'name' bean передается ссылка 'ref'  -->
         <property name="music"  ref="musicBean"/>
+
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="volume" value="${musicPlayer.volume}"/>
     </bean>
 
 </beans>

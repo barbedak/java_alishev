@@ -8,11 +8,12 @@ public class TestSpring {
 
         //получаем bean из Application Context
         //указываем id bean и класс, bean которого хотим получить
-       // Music music = context.getBean("musicBean", Music.class);
 
-        //MusicPlayer musicPlayer = new MusicPlayer(music);
         MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
         musicPlayer.playMusic();
+
+        System.out.println(musicPlayer.getName() + " - " + musicPlayer.getVolume());
+
 
         context.close(); //не забываем закрывать, при завершении работы с Application Context
     }
