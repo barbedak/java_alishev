@@ -11,7 +11,6 @@
 package ru.kurochkin.springcourse.dao;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import ru.kurochkin.springcourse.models.Person;
 
 import java.util.ArrayList;
@@ -38,5 +37,10 @@ public class PersonDAO {
 
     public Person show(int id){
         return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
+    }
+
+    public void save(Person person){
+        person.setId(++PEOPLE_COUNT);
+        people.add(person);
     }
 }
