@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update person</title>
+</head>
+<body>
+<!--
+HTML5 поддерживает только PUT и GET методы
+method="PATCH" не будет работать
+thymeleaf поддерживает все
+обход через создание скрытого поля
+    <input type="hidden" name="_method" value="patch">
+и фильтрации HTTP заапросов на контролере,
+при обнаружении скрытого поля фильтр преобразует запрос к типу, указнному в value
+-->
+
+<form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+
+</body>
+</html>
